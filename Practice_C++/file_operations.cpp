@@ -110,6 +110,8 @@ double convertToDouble(string& str, bool& success)
 
 void work_on_csv()
 {
+    cout << "Worknig on CSV File:" << endl;
+
     string input_csv_file = "test input_csv_file.csv";
     string processed_csv_file = "test processed_csv_file.csv";
 
@@ -151,17 +153,20 @@ void work_on_csv()
 
     infile.close();
 
+    string headersName = headers[0] + " " + headers[1] + " " + headers[2] + " " + headers[3] + " " + headers[4] + " " + headers[5];
+    cout << headersName << endl;
+
     // Modify Data
     // Column name - date	close	volume	open	high	low
     for(auto& row : input_data)
     {
         bool isCloseValid, isVolumeValid, isOpenValid, isHighValid, isLowValid;
-        string date = row[1];
-        double close = convertToDouble(row[2], isCloseValid);
-        double volume = convertToDouble(row[3], isVolumeValid);
-        double open = convertToDouble(row[4], isOpenValid);
-        double high = convertToDouble(row[5], isHighValid);
-        double low = convertToDouble(row[6], isLowValid);
+        string date = row[0];
+        double close = convertToDouble(row[1], isCloseValid);
+        double volume = convertToDouble(row[2], isVolumeValid);
+        double open = convertToDouble(row[3], isOpenValid);
+        double high = convertToDouble(row[4], isHighValid);
+        double low = convertToDouble(row[5], isLowValid);
 
         if(isCloseValid && isVolumeValid && isOpenValid && isHighValid && isLowValid)
         {
@@ -176,6 +181,33 @@ void work_on_csv()
         cout << temp << endl;
     }
 
+    ofstream outfile(processed_csv_file);
+
+    if(!outfile.is_open())
+    {
+        cerr << "Output CSV file not found." << endl;
+    }
+
+    for(size_t i = 0; i<headers.size(); i++)
+    {
+        outfile << headers[i];
+        if(i < headers.size() - 1) outfile << ",";
+    }
+    outfile << "\n";
+
+    for(const auto& row :input_data)
+    {
+        for(size_t i = 0; i<row.size(); i++)
+        {
+            outfile << row[i];
+            if(i < row.size() - 1) outfile << ",";
+        }
+        outfile << "\n";
+    }
+
+    outfile.close();
+
+    cout << "Data has been processed successfully." << endl;
 }
 
 int main()
