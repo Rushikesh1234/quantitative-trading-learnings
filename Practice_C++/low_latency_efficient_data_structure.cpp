@@ -104,6 +104,11 @@ struct MarketData
     double price;
     int volume;
     chrono::time_point<chrono::high_resolution_clock> timestamp;
+
+    MarketData(){}
+
+    MarketData(int p, int v, chrono::time_point<chrono::high_resolution_clock> t)
+    : price(p), volume(v), timestamp(t) {}
 };
 
 template <typename T>
@@ -152,51 +157,53 @@ class LockFreeQueue
         }
 };
 
-void producer(LockFreeQueue<MarketData>& queue)
+void producer(LockFreeQueue<MarketData>& queue, int& iteration)
 {
     random_device rd;
     mt19937 gen(rd());
     uniform_real_distribution<> price_dist(10.0, 20.0);
     uniform_int_distribution<> volume_dist(1, 10);
 
-    while(true)
+    while(iteration < 20)
     {
-        MarketData data {
-            price_dist(gen),
-            volume_dist(gen),
-            chrono::high_resolution_clock::now()
-        };
+        MarketData data(
+            price_dist(gen), 
+            volume_dist(gen), 
+            std::chrono::high_resolution_clock::now()
+        );
 
         if(queue.enqueue(data))
         {
-            cout << "Priduction: Price=" << data.price << " Volume=" << data.volume << endl;
+            cout << "Production: Price=" << data.price << " Volume=" << data.volume << endl;
         }
         else
         {
             cout << "Queue is full, dropping some data" << endl;
         }
 
+        iteration++;
         this_thread::sleep_for(chrono::milliseconds(10));
     }
 }
 
-void consumer(LockFreeQueue<MarketData>& queue)
+void consumer(LockFreeQueue<MarketData>& queue, int& iteration)
 {
-    while(true)
+    while(iteration < 20)
     {
         MarketData data;
         if(queue.dequeue(data))
         {
-            auto now = chrono::high_resolution_clock::now();
-            auto latency = chrono::duration_cast<chrono::microseconds>(now - data.timestamp).count();
+            chrono::time_point<chrono::high_resolution_clock> now = chrono::high_resolution_clock::now();
+            size_t latency = chrono::duration_cast<chrono::microseconds>(now - data.timestamp).count();
 
             cout << "Consumed: Price: " << data.price << " Volume: " << data.price << " Latency: " << latency << endl;
         }
         else
         {
-            cerr << "Queue us empty, waiting for data" << endl;
+            cerr << "Queue is empty, waiting for data" << endl;
         }
 
+        iteration++;
         this_thread::sleep_for(chrono::milliseconds(5));
     }
 }
@@ -204,7 +211,7 @@ void consumer(LockFreeQueue<MarketData>& queue)
 int main()
 {
     cout << endl << endl;
-
+    
     // Circular Buffers for Streaming Data
     cout << "Circular Buffers for Streaming Data" << endl;
     int size = 5;
@@ -222,12 +229,17 @@ int main()
     cout << "After stock PriceBuffer size " << pcb.currentBufferSize() << " Calculate Average stock price " << pcb.calculateAverageForEveryDay() << endl;
     cout << endl << endl;
 
+    cout << endl << endl;
+    
+    
     // Lock-Free Queues for Low-Latency Message Passing
     cout << "Lock-Free Queues for Low-Latency Message Passing" << endl;
     LockFreeQueue<MarketData> market_data_queue(10);
     
-    thread producer_thread(producer, ref(market_data_queue));
-    thread consumer_thread(consumer, ref(market_data_queue));
+    int iteration = 0;
+    std::thread producer_thread([&]() { producer(market_data_queue, iteration); });
+    std::thread consumer_thread([&]() { consumer(market_data_queue, iteration); });
+
 
     producer_thread.join();
     consumer_thread.join();
