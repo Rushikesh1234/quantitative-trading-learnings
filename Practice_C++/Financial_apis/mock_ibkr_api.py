@@ -1,3 +1,10 @@
+# IBKR - Interactive Broker's platform
+# Instead of creating an account and paying for a subscription to interact with their live data,
+# I have simulated their IBKR server to mimic having access to it and interacting with their APIs.
+# I copied their APIs from IBKR's Web API reference page on the IBKRCampus portal.
+# Now, my C++ code will act as the client, and this mock Python file will act as the server, 
+# making GET/POST requests to pull or push some data.
+
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
