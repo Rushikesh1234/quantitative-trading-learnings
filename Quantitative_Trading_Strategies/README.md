@@ -1,4 +1,3 @@
-**Quantitative Trading Strategies: What, Why, and How**
 
 ### What Are Quantitative Trading Strategies?
 Quantitative trading strategies are systematic approaches to trading financial markets using mathematical models, statistical analysis, and algorithms. These strategies aim to identify trading opportunities, automate decision-making, and execute trades efficiently.
@@ -82,7 +81,3 @@ Quantitative trading involves the following steps:
     - **Example**: A portfolio splits investments equally by risk, allocating less to volatile stocks and more to stable bonds.
 
 ---
-
-### Summary
-Quantitative trading strategies leverage data and algorithms to trade efficiently, minimize risk, and maximize returns. Each strategy has unique characteristics suited for specific market conditions, making it crucial to understand, test, and refine them for effective implementation.
-
