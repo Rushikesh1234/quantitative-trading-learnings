@@ -83,4 +83,6 @@ Quantitative trading involves the following steps:
 
 ---
 
+### Summary
+Quantitative trading strategies leverage data and algorithms to trade efficiently, minimize risk, and maximize returns. Each strategy has unique characteristics suited for specific market conditions, making it crucial to understand, test, and refine them for effective implementation.
 
