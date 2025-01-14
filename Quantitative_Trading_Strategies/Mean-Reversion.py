@@ -47,3 +47,29 @@ plt.scatter(data.index[data['Signal'] == -1], data['Close_AAPL'][data['Signal'] 
 plt.legend()
 plt.title('Mean Reversion')
 plt.show()
+
+
+# Backtesting for this strategy
+
+initial_cash = 10000
+cash = initial_cash
+position = 0
+portfolio_value = []
+
+for i in range(len(data)):
+    # Buy stock
+    if data['Signal'].iloc[i] == 1 and cash >= data['Close_AAPL'].iloc[i]:
+        position = cash / data['Close_AAPL'].iloc[i]
+    # Sell Stock
+    elif data['Signal'].iloc[i] == -1 and position > 0:
+        cash = position + data['Close_AAPL'].iloc[i]
+    portfolio_value.append(cash + position * data['Close_AAPL'].iloc[i])
+
+data['Portfolio Value'] = portfolio_value
+
+
+plt.figure(figsize=(10, 6))
+plt.plot(data['Portfolio Value'], label='Mean-Reversion Strategy')
+plt.legend()
+plt.title('Backtesting Portfolio Value')
+plt.show()
