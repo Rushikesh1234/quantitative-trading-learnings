@@ -1,14 +1,19 @@
 #include "OrderBook/OrderBook.hpp"
 #include "ExecutionEngine/ExecutionEngine.hpp"
+#include "LatencySimulator/LatencySimulator.hpp"
 
 int main()
 {
     OrderBook orderBook;
     ExecutionEngine executionEngine;
+    LatencySimputor latencySimulator;
 
+    latencySimulator.simulateLatency(100);
     executionEngine.executeTrade({0, "USD", 100000.0, 0, false});
+    latencySimulator.simulateLatency(50);
     executionEngine.executeTrade({0, "AAPL", 0.0, 0, true});
 
+    latencySimulator.simulateLatency(100);
     orderBook.placeOrder(true, 100.5, 10);
     orderBook.placeOrder(false, 101.0, 5);
     orderBook.placeOrder(true, 102.3, 15);
@@ -30,12 +35,15 @@ int main()
     orderBook.placeOrder(true, 98.2, 35);
     orderBook.placeOrder(false, 105.0, 4);
 
+    latencySimulator.simulateLatency(100);
     orderBook.matchOrder();
 
     executionEngine.executeTrade({1, "AAPL", 150.5, 5, true});
+    latencySimulator.simulateLatency(10000);
     executionEngine.executeTrade({2, "AAPL", 149.5, 5, false});
     
     orderBook.printOrderBook();
+    latencySimulator.simulateLatency(100);
     executionEngine.printAccountStatus();
 
     return 0;
