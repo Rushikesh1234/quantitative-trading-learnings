@@ -2,6 +2,13 @@
 
 This repository documents my 15-day learning path to becoming a quantitative developer. It includes code and projects focusing on high-performance trading with C++, financial data APIs, and Python for quantitative finance. The emphasis is on algorithmic trading and quantitative analysis.
 
+## **QuantTrade Engine - High-Performance Strategy Simulator**
+- This project is a comprehensive quantitative trading engine designed for backtesting and executing trading strategies. It leverages C++ for low-latency processing and Python for data fetching, visualization, and backtesting.
+- **Real-Time Systems**: Building low-latency systems for real-time data processing, order execution, and risk management.
+- **Execution Engine**: Simulating trades, managing positions, and handling order matching with optimized execution logic.
+
+**Code**: [QuantTradeEngine](./QuantTradeEngine)
+
 ## **C++ for High-Performance Trading**
 - **Introduction to C++**: Basics, syntax, control structures, and OOP principles (classes, inheritance, polymorphism).
 - **STL (Standard Template Library)**: Containers (vectors, maps, sets), iterators, and algorithms for efficient data manipulation.
@@ -17,12 +24,6 @@ This repository documents my 15-day learning path to becoming a quantitative dev
 - **Data Visualization**: Plotting trends and financial indicators with Matplotlib and Plotly.
 
 **Code**: [Practice_Python.ipynb](./Practice_Python.ipynb)
-
-## **High-Performance Trading Systems**
-- **Real-Time Systems**: Building low-latency systems for real-time data processing, order execution, and risk management.
-- **Execution Engine**: Simulating trades, managing positions, and handling order matching with optimized execution logic.
-
-**Code**: [QuantTradeEngine](./QuantTradeEngine)
 
 ## **Goal**
 The first goal is to learn adn understnad, how all these things works. Then another goal is to integrate C++ for low-latency execution and Python for strategy development and analysis. This allows for creating high-performance trading algorithms capable of making decisions at high speeds and with minimal risk.
