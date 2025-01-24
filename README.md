@@ -22,7 +22,7 @@ This repository documents my 15-day learning path to becoming a quantitative dev
 - **Real-Time Systems**: Building low-latency systems for real-time data processing, order execution, and risk management.
 - **Execution Engine**: Simulating trades, managing positions, and handling order matching with optimized execution logic.
 
-**Code**: [Quanttradeengine](./Quanttradeengine)
+**Code**: [QuantTradeEngine](./QuantTradeEngine)
 
 ## **Goal**
 The first goal is to learn adn understnad, how all these things works. Then another goal is to integrate C++ for low-latency execution and Python for strategy development and analysis. This allows for creating high-performance trading algorithms capable of making decisions at high speeds and with minimal risk.
