@@ -1,12 +1,14 @@
 #include "OrderBook/OrderBook.hpp"
 #include "ExecutionEngine/ExecutionEngine.hpp"
 #include "LatencySimulator/LatencySimulator.hpp"
+#include "RiskManagement/RiskManager.hpp"
 
 int main()
 {
     OrderBook orderBook;
     ExecutionEngine executionEngine;
     LatencySimputor latencySimulator;
+    RiskManager riskManager(10.0, 20.0, 100000.0);
 
     latencySimulator.simulateLatency(100);
     executionEngine.executeTrade({0, "USD", 100000.0, 0, false});
@@ -45,6 +47,25 @@ int main()
     orderBook.printOrderBook();
     latencySimulator.simulateLatency(100);
     executionEngine.printAccountStatus();
+
+    riskManager.setPositionLimit("AAPL", 500);
+    std::string symbol = "AAPL";
+    double tradePrice = 150.5;
+    int tradeQuantity = 300;
+    bool isBuy = true;
+
+    if(riskManager.validateTrade(symbol, tradePrice, tradePrice, isBuy))
+    {
+        std::cout << "Trade Approved: " << (isBuy ? "Buy" : "Sell") << " " << tradeQuantity << " of " << symbol << " at " << tradePrice << "\n";
+    }
+    else
+    {
+        std::cout << "Trade rejected due to risk limit. \n";
+    }
+
+    riskManager.updatePortfolioValue(95000.0); // for loss check
+    riskManager.printRiskStatus();
+
 
     return 0;
 }
