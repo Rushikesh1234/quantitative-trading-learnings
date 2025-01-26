@@ -26,4 +26,4 @@ This repository documents my 15-day learning path to becoming a quantitative dev
 **Code**: [Practice_Python.ipynb](./Practice_Python.ipynb)
 
 ## **Goal**
-The first goal is to learn adn understnad, how all these things works. Then another goal is to integrate C++ for low-latency execution and Python for strategy development and analysis. This allows for creating high-performance trading algorithms capable of making decisions at high speeds and with minimal risk.
+The first goal is to learn and understnad, how all Quantitative Trading things works. Then another goal is to integrate C++ for low-latency execution and Python for strategy development and analysis. This allows for creating high-performance trading algorithms capable of making decisions at high speeds and with minimal risk.
