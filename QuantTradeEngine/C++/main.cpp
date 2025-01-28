@@ -2,6 +2,8 @@
 #include "ExecutionEngine/ExecutionEngine.hpp"
 #include "LatencySimulator/LatencySimulator.hpp"
 #include "RiskManagement/RiskManager.hpp"
+#include "Strategy/MovingAverage.hpp"
+#include "MarketDataFeed/MarketDataFeed.hpp"
 
 int main()
 {
