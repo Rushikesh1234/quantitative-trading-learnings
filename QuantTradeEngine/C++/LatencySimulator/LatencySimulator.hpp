@@ -5,7 +5,7 @@
 #include <iostream>
 #include <chrono>
 
-class LatencySimputor
+class LatencySimulator
 {
     public:
         void simulateLatency(int milliSeconds)

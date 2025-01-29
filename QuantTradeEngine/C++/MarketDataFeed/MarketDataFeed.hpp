@@ -12,8 +12,8 @@ class MarketDataFeed
         size_t currentIndex = 0;
     public:
         MarketDataFeed(const std::vector<double>& prices);
-
-        void fetchNextPrice(const std::function<void(double)>& newPrice);
+        bool fetchNextPrice(const std::function<void(double)>& newPrice);
+        double getLastPrice(const std::string& symbol);
 };
 
 #endif

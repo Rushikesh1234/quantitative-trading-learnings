@@ -86,6 +86,11 @@
         "shared_mutex": "cpp",
         "strstream": "cpp",
         "typeindex": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "forward_list": "cpp",
+        "span": "cpp",
+        "unordered_set": "cpp",
+        "valarray": "cpp",
+        "ranges": "cpp"
     }
 }

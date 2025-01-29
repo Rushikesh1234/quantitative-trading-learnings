@@ -4,16 +4,20 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <numeric>
 
 class MovingAverage
 {
     private:
-        int shortWindow;
-        int longWindow;
+        double calculateSMA(int period);
+        std::vector<double> priceHistory;
     public:
         MovingAverage(int shortW, int longW);
-
-        std::string genrateSignal(const std::vector<double>& prices);
+        int shortWindow;
+        int longWindow;
+        bool shouldBuy(double price);
+        bool shouldSell(double price);
+        void updatePrice(double price);
 };
 
 #endif

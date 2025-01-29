@@ -2,28 +2,37 @@
 
 MovingAverage::MovingAverage(int shortW, int longW):shortWindow(shortW), longWindow(longW) {}
 
-std::string MovingAverage::genrateSignal(const std::vector<double>& prices)
+double MovingAverage::calculateSMA(int period)
 {
-    if(prices.size() < longWindow)
+    if(priceHistory.size() < period) return 0.0;
+
+    double sum = std::accumulate(priceHistory.end() - period, priceHistory.end(), 0.0);
+
+    return sum / period;
+}
+
+bool MovingAverage::shouldBuy(double price)
+{
+    double shortSMA = calculateSMA(shortWindow);
+    double longSMA = calculateSMA(longWindow);
+ 
+    return (shortSMA > longSMA);
+}
+
+bool MovingAverage::shouldSell(double price)
+{
+    double shortSMA = calculateSMA(shortWindow);
+    double longSMA = calculateSMA(longWindow);
+
+    return (shortSMA < longSMA);
+}
+
+void MovingAverage::updatePrice(double price)
+{
+    priceHistory.push_back(price);
+
+    if(priceHistory.size() > longWindow)
     {
-        return "Hold";
+        priceHistory.erase(priceHistory.begin());
     }
-
-    double shortAvg = 0.0;
-    double longAvg = 0.0;
-
-    for(size_t i = prices.size() - shortWindow; i < prices.size(); i++)
-    {
-        shortAvg += prices[i];
-    }
-
-    for(size_t i = prices.size() - longWindow; i < prices.size(); i++)
-    {
-        longAvg += prices[i];
-    }
-
-    shortAvg /= shortWindow;
-    longAvg /= longWindow;
-
-    return (shortAvg > longAvg) ? "Buy" : "Sell";
 }
